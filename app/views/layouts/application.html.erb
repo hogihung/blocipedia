@@ -9,18 +9,36 @@
 <body>
 
   <div class="container">
-    <ul class="nav nav-tabs pull-right">
+    <ul class="nav nav-tabs">
       <li><%= link_to "About", home_about_path %></li>
       <li><%= link_to "Contact", home_contact_path %></li>
+        <div class="pull-right user-info">
+          <% if current_user %>
+            Hello <% current_user.email %>! <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path %>
+          <% end %>
+        </div>
     </ul>
-  </div>
 
-  <div class="row">
-    <div class="col-md-8">
-      <div class="col-md-4">
-        <%= yield %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:notice] %>
       </div>
-    </div>
+    <% elsif flash[:error] %>
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:error] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
+    <%= yield %>
   </div>
 
 </body>
