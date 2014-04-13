@@ -8,7 +8,20 @@
 </head>
 <body>
 
-<%= yield %>
+  <div class="container">
+    <ul class="nav nav-tabs pull-right">
+      <li><%= link_to "About", home_about_path %></li>
+      <li><%= link_to "Contact", home_contact_path %></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="col-md-4">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

@@ -45,3 +45,4 @@ group :development, :test do
   gem 'database_cleaner'
 end
 
+gem 'bootstrap-sass', '~> 3.1.1'
