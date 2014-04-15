@@ -1,12 +1,19 @@
-<h1>Wikis#new</h1>
-<p>Find me in app/views/wikis/new.html.erb</p>
+<h1>New Wiki</h1>
 
-<%= form_for @wiki do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-
-  <%= f.label :body %>
-  <%= f.text_area :body %>
-
-  <%= f.submit "Save" %>
-<% end %>
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for @wiki do |f| %>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="form-group">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Save" %>
+    </div>
+  <% end %>
+  </div>
+</div>
