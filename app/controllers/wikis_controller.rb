@@ -6,7 +6,7 @@ class WikisController < ApplicationController
   end
 
   def new
-    #...
+    @wiki = Wiki.new
   end
 
   def show
@@ -18,7 +18,14 @@ class WikisController < ApplicationController
   end
 
   def create
-    #...
+    @wiki = Wiki.new(params.require(:wiki).permit(:titel, :body))
+    if @wiki.save
+      flash[:notice] = "Wiki was saved."
+      redirect_to @wiki
+    else
+      flash[:error] = "There was an error saving this wiki.  Please try again."
+      render :new
+    end
   end
 
   def update
