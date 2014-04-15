@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'home/contact'
 
   resources :users, only: [:update]
+  resources :wikis
 
   root to: 'home#index'
 
