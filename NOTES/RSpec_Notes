@@ -1,0 +1,16 @@
+# spec/models/name_spec.rb
+
+require 'spec_helper'
+describe Wiki do
+  it 'is invalid without a title' do
+    wiki = Wiki.new
+    wiki.should_not be_valid
+  end
+
+  it 'is invalide without a body' do
+    wiki = Wiki.new
+    wiki.title = "My Wiki"
+    wiki.should_not be_valid
+  end
+end
+

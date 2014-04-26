@@ -39,10 +39,20 @@ end
 gem 'rails_12factor', group: :production
 
 group :development, :test do
+  gem "rspec-rails"
   gem 'pry-rails'
-  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'guard-rspec'
+  gem 'capybara'
+  gem 'capybara-webkit'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'database_cleaner'
+  gem 'guard-livereload'
+  gem 'launchy'
+  gem 'faker'
+  #gem 'should_not'  #evaluate if we want to use
 end
 
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -52,6 +62,3 @@ gem 'devise'
 gem 'figaro'
 
 gem 'redcarpet'
-
-
-

@@ -1,4 +1,22 @@
 <h1>All Wikis</h1>
-<% @wikis.each do |wiki| %>
-  <p><%= link_to wiki.title, wiki %></p>
-<% end %>
+
+<div class="row">
+  <% @wikis.each do |wiki| %>
+    <div class="col-md-8">
+      <%= link_to wiki.title, wiki %>
+    </div>
+    <div class="col-md-2">
+      <% if current_user %>
+        <%= link_to "Edit", edit_wiki_path(wiki) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<p>
+  <div class="row">
+    <div class="col-md-6">
+      <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
+    </div>
+  </div>
+</p>
