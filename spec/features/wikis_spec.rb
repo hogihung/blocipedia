@@ -67,26 +67,24 @@ feature 'User creates a private wiki', %q{
     @wiki.private = true
   end
 
-  scenario 'User, with Premium Account, is creating a private wiki', focus: true do
+  scenario 'User, with Premium Account, can creatie a private wiki', focus: true do
     login(@user)
     @user.premium = true
     visit wikis_path
     click_link "New Wiki"
     fill_in "Title", with: "My Wiki Title"
     fill_in "Body",  with: "This is the body text"
+    page.check("Private")
     click_button "Save"
     expect(@wiki.private?).to be_true
   end
 
-    scenario 'User,not with Premium Account, fails to create a private wiki' do
+  scenario 'User,not with Premium Account, fails to create a private wiki', focus: true do
     login(@user)
     @user.premium = false
     visit wikis_path
     click_link "New Wiki"
-    fill_in "Title", with: "My Wiki Title"
-    fill_in "Body",  with: "This is the body text"
-    click_button "Save"
-    expect(page).to have_content "Only Premium Account Users can create Private Wikis."
+    has_no_checked_field?("Private")
   end
 
   scenario 'User is not logged in, should not be able to create a private wiki', focus: true do
@@ -111,12 +109,12 @@ feature 'User edits a private wiki', %q{
 
   scenario 'User is logged in as a premium user, edits a private wiki' do
     login(@user)
-    @wiki.private = true
+    @user.premium = true
   end
 
   scenario 'User is logged in, but is not a premium user, should not be able to edit a private wiki' do
     login(@user)
-    @wiki.private = false
+    @user.premium = false
   end
 
   scenario 'User is not logged in, should not be able to edit a private wiki' do
