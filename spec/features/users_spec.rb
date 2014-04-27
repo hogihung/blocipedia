@@ -38,3 +38,25 @@ feature 'User Authentication', %q{
   end
 
 end
+
+feature 'Premium User Account', %q{
+  As a registered user of the site
+  With a current Premium Account
+  I should have an attribute of premium as true
+} do
+
+  background do
+    @user = create(:user)
+  end
+
+  scenario 'User has a premium account', focus: true do
+    @user.premium = true
+    #...
+    expect(@user.premium?).to be_true
+  end
+
+  scenario 'User does not have a premium account', focus: true do
+    expect(@user.premium?).to be_false
+  end
+
+end
