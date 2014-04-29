@@ -41,6 +41,7 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   gem "rspec-rails"
   gem 'pry-rails'
+  gem 'quiet_assets'
 end
 
 group :test do
@@ -62,3 +63,5 @@ gem 'devise'
 gem 'figaro'
 
 gem 'redcarpet'
+
+

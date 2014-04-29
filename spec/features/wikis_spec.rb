@@ -64,27 +64,30 @@ feature 'User creates a private wiki', %q{
   background do
     @user = create(:user)
     @wiki = create(:wiki)
-    @wiki.private = true
   end
 
-  scenario 'User, with Premium Account, can creatie a private wiki', focus: true do
+  scenario 'User, with Premium Account, can create a private wiki', focus: true do
     login(@user)
     @user.premium = true
+    @user.save
     visit wikis_path
     click_link "New Wiki"
     fill_in "Title", with: "My Wiki Title"
     fill_in "Body",  with: "This is the body text"
-    page.check("Private")
+    check("Private")
+    puts page.html
     click_button "Save"
+    #@wiki.private = true
     expect(@wiki.private?).to be_true
   end
 
-  scenario 'User,not with Premium Account, fails to create a private wiki', focus: true do
+  scenario 'User, not with Premium Account, does not have option to create a private wiki', focus: true do
     login(@user)
     @user.premium = false
     visit wikis_path
     click_link "New Wiki"
-    has_no_checked_field?("Private")
+    has_checked_field?("Private") #this is wrong. Need something like
+    #expect checkbox to not be present.
   end
 
   scenario 'User is not logged in, should not be able to create a private wiki', focus: true do
@@ -107,17 +110,23 @@ feature 'User edits a private wiki', %q{
     @wiki.private = true
   end
 
-  scenario 'User is logged in as a premium user, edits a private wiki' do
+  scenario 'User is logged in as a premium user, edits a private wiki', focus: true do
     login(@user)
     @user.premium = true
+    visit wikis_path
+    click_link "Edit"
   end
 
-  scenario 'User is logged in, but is not a premium user, should not be able to edit a private wiki' do
+  scenario 'User is logged in, but is not a premium user, should not be able to edit a private wiki', focus: true do
     login(@user)
     @user.premium = false
+    visit wikis_path
+    click_link "Edit"
+    has_no_checked_field?("Private")
   end
 
-  scenario 'User is not logged in, should not be able to edit a private wiki' do
-    #...
+  scenario 'User is not logged in, should not be able to edit a private wiki', focus: true do
+    visit wikis_path
+    expect(page).to_not have_content "Edit"
   end
 end
