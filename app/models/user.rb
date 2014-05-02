@@ -6,11 +6,11 @@ class User < ActiveRecord::Base
 
   has_many :wikis
 
-  enum role: [:user, :premium, :admin]
+  enum role: [:member, :premium, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :member
   end
 
 end
