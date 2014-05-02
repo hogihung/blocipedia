@@ -51,19 +51,11 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'database_cleaner'
   gem 'guard-livereload'
-  gem 'launchy'
   gem 'faker'
-  #gem 'should_not'  #evaluate if we want to use
 end
 
 gem 'bootstrap-sass', '~> 3.1.1'
-
 gem 'devise'
-
 gem 'figaro'
-
 gem 'redcarpet'
-
 gem 'pundit'
-
-
