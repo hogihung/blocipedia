@@ -7,6 +7,10 @@ FactoryGirl.define do
     password "playTime"
     password_confirmation "playTime"
 
+    trait :premium do
+      premium true
+    end
+
     confirmed_at Time.now
   end
 end
