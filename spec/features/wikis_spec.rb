@@ -21,7 +21,7 @@ feature 'User creates a public wiki', %q{
     expect(@wiki.private?).to be_false
   end
 
-  scenario 'User is not logged in, should not be able to create a public wiki' do
+  scenario 'User is not logged in, should not be able to create a public wiki'  do
     visit wikis_path
     click_link "New Wiki"
     expect(page).to have_content "You need to sign in or sign up before continuing."
@@ -68,7 +68,7 @@ feature 'User creates a private wiki', %q{
 
   scenario 'User, with Premium Account, can create a private wiki' do
     login(@user)
-    @user.premium = true
+    @user.role = "premium"
     @user.save
     visit wikis_path
     click_link "New Wiki"
@@ -82,14 +82,11 @@ feature 'User creates a private wiki', %q{
 
   scenario 'User, not with Premium Account, does not have option to create a private wiki' do
     login(@user)
-    @user.premium = false
+    @user.role = "member"
     visit wikis_path
     click_link "New Wiki"
-    #Need something like: expect checkbox to not be present.  I don't like the
-    #check below - too loose of a test.
-    # maybe a test that looks for a css attribute for the checkbox?
-    # or a capybara within check?
-    expect(page).to_not have_content "Private"
+    page.has_checked_field?("Private").should_not be
+    #expect(page).to_not have_content "Private"
   end
 
   scenario 'User is not logged in, should not be able to create a private wiki' do
@@ -114,14 +111,14 @@ feature 'User edits a private wiki', %q{
 
   scenario 'User is logged in as a premium user, edits a private wiki' do
     login(@user)
-    @user.premium = true
+    @user.role = "premium"
     visit wikis_path
     click_link "Edit"
   end
 
   scenario 'User is logged in, but is not a premium user, should not be able to edit a private wiki' do
     login(@user)
-    @user.premium = false
+    @user.role = "member"
     visit wikis_path
     click_link "Edit"
     has_no_checked_field?("Private")
