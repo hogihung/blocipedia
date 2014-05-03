@@ -3,7 +3,7 @@
     <p><%= markdown @wiki.body %></p>
 
     <p>
-      <% if policy(@wiki).can_create_private_wiki? %>
+      <% if policy(@wiki).update? %>
         <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
       <% end %>
     </p>
