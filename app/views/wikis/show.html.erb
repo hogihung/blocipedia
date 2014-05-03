@@ -1,4 +1,4 @@
-<% unless (@wiki.private? && current_user.id != @wiki.user_id) %>
+
   <h1><%= markdown @wiki.title %></h1>
     <div class="col-md-8">
       <p><%= markdown @wiki.body %></p>
@@ -10,8 +10,3 @@
       </p>
 
     </div>
-<% else %>
-  <p><br />
-    This is a private Wiki, not available for public viewing
-  </p>
-<% end %>
