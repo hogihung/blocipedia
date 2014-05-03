@@ -1,10 +1,10 @@
 class ApplicationPolicy
-  attr_reader :user, :record
+  attr_reader :user, :wiki
 
-  def initialize(user, record)
+  def initialize(user, wiki)
     raise Pundit::NotAuthorizedError, "Must be logged in." unless user
     @user = user
-    @record = record
+    @wiki = wiki
   end
 
   def index?
@@ -12,7 +12,7 @@ class ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    scope.where(:id => wiki.id).exists?
   end
 
   def create?
@@ -24,7 +24,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user.present? && (record.user == user || user.role?(:admin))
+    user.present? && (wiki.user == user || user.role?(:admin))
   end
 
   def edit?
@@ -36,7 +36,7 @@ class ApplicationPolicy
   end
 
   def scope
-    record.class
+    wiki.class
   end
 end
 
