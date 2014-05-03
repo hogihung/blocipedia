@@ -1,4 +1,4 @@
-<h1>All Wikis</h1>
+<h1>Blocipedia: Whacky World of Wikis</h1>
 
 <div class="row">
   <% @wikis.each do |wiki| %>
@@ -18,7 +18,9 @@
 <p>
   <div class="row">
     <div class="col-md-6">
-      <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
+      <% if current_user %>
+        <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
+      <% end %>
     </div>
   </div>
 </p>
