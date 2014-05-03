@@ -2,10 +2,12 @@ class WikisController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    if current_user
+    if !current_user
+      @wikis = Wiki.where(private: false)
+    elsif current_user && current_user.role == "admin"
       @wikis = Wiki.all
     else
-      @wikis = Wiki.where(private: false)
+      @wikis = Wiki.where(user_id: current_user.id)
     end
   end
 
