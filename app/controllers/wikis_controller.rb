@@ -7,7 +7,7 @@ class WikisController < ApplicationController
     elsif current_user && current_user.role == "admin"
       @wikis = Wiki.all
     else
-      @wikis = Wiki.where(user_id: current_user.id)
+      @wikis = Wiki.where("user_id = ? OR private = ?", current_user.id, false)
     end
   end
 
