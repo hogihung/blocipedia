@@ -1,12 +1,15 @@
-<h1><%= markdown @wiki.title %></h1>
-  <div class="col-md-8">
-    <p><%= markdown @wiki.body %></p>
+<% unless @wiki.private? %>
+  <h1><%= markdown @wiki.title %></h1>
+    <div class="col-md-8">
+      <p><%= markdown @wiki.body %></p>
 
-    <p>
-      <% if policy(@wiki).update? %>
-        <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
-      <% end %>
-    </p>
+      <p>
+        <% if policy(@wiki).update? %>
+          <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
+        <% end %>
+      </p>
 
-  </div>
-
+    </div>
+<% else %>
+  This is a private Wiki, not available for public viewing
+<% end %>
