@@ -2,7 +2,9 @@ class ApplicationPolicy
   attr_reader :user, :wiki
 
   def initialize(user, wiki)
-    raise Pundit::NotAuthorizedError, "Must be logged in." unless user
+    # Leaving for now as I may need to use, but in a different context.
+    # With this on, non-registered users are not allowed to use Show action.
+    #raise Pundit::NotAuthorizedError, "Must be logged in." unless user
     @user = user
     @wiki = wiki
   end
