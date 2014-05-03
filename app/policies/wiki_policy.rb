@@ -22,7 +22,7 @@ class WikiPolicy < ApplicationPolicy
 
   def show?
     # changes here ....
-    !wiki.private? || user.id == wiki.user_id
+    #!wiki.private? #|| user.id == wiki.user_id
   end
 
 end

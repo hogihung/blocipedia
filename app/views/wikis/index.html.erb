@@ -3,7 +3,8 @@
 <div class="row">
   <% @wikis.each do |wiki| %>
     <div class="col-md-8">
-      <%= link_to wiki.title, wiki %>
+      <%= link_to wiki.title, wiki %> |||
+      <%= wiki.private %>
     </div>
     <div class="col-md-2">
       <% if current_user %>
