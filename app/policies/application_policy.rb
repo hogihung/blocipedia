@@ -26,7 +26,7 @@ class ApplicationPolicy
   end
 
   def update?
-    user.present? && (wiki.user == user || user.role?(:admin))
+    user.present? && (wiki.user == user || user.role == "admin")
   end
 
   def edit?
