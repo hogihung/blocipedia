@@ -21,8 +21,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    # changes here ....
-    #!wiki.private? #|| user.id == wiki.user_id
+    !wiki.private? || (wiki.private? && user.id == wiki.user_id if user.present?)
   end
 
 end
