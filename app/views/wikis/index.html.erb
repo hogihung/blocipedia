@@ -1,19 +1,24 @@
 <h1>Blocipedia: Whacky World of Wikis</h1>
 
 <div class="row">
-  <% @wikis.each do |wiki| %>
-    <div class="col-md-8">
-      <%= link_to wiki.title, wiki %> |||
-      <%= wiki.private %>
-    </div>
-    <div class="col-md-2">
-      <% if current_user %>
-        <%= link_to "Edit", edit_wiki_path(wiki) %> |
-        <%= link_to "Delete", wiki, method: :delete, confirm: 'Are you sure you want to delete this wiki?' %> |
-        <%= link_to "Export", '#' %>
+  <p><br />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+      </tr>
+      <% @wikis.each do |wiki| %>
+        <tr>
+          <td><%= link_to wiki.title, wiki %></td>
+          <td><%= wiki.user_id %></td>
+          <% if current_user %>
+          <td><%= link_to "Edit", edit_wiki_path(wiki) %></td>
+          <td><%= link_to "Delete", wiki, method: :delete, confirm: 'Are you sure you want to delete this wiki?' %></td>
+          <td><%= link_to "Export", '#' %></td>
+        </tr>
+          <% end %>
       <% end %>
-    </div>
-  <% end %>
+    </table>
+  </p>
 </div>
 
 <p>
