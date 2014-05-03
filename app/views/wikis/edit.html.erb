@@ -11,6 +11,12 @@
           <%= f.label :body %>
           <%= f.text_area :body, rows: 16, class: 'form-control', placeholder: "Enter a wiki body" %>
         </div>
+        <% if policy(@wiki).can_create_private_wiki? %>
+        <div class="form-group">
+          <%= f.label :private %>
+          <%= f.check_box(:private) %>
+        </div>
+        <% end %>
         <div class="form-group">
           <%= f.submit "Save", class: 'btn btn-success' %>
         </div>
