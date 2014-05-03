@@ -11,6 +11,7 @@
           <td><%= link_to wiki.title, wiki %></td>
           <td><%= wiki.user_id %></td>
           <% if current_user %>
+          <td><%= wiki.private %></td>
           <td><%= link_to "Edit", edit_wiki_path(wiki) %></td>
           <td><%= link_to "Delete", wiki, method: :delete, confirm: 'Are you sure you want to delete this wiki?' %></td>
           <td><%= link_to "Export", '#' %></td>
