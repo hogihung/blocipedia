@@ -2,7 +2,11 @@ class WikisController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
 
   def index
-    @wikis = Wiki.all
+    if current_user
+      @wikis = Wiki.all
+    else
+      @wikis = Wiki.where(private: false)
+    end
   end
 
   def new
