@@ -1,5 +1,9 @@
 class WikiPolicy < ApplicationPolicy
 
+  def index?
+    true
+  end
+
   def can_create_private_wiki?
     user.present? && user.role == "premium"
   end
