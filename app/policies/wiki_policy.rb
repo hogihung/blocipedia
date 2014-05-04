@@ -13,7 +13,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def update?
-    create?
+    destroy?
   end
 
   def destroy?
