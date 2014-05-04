@@ -1,27 +1,3 @@
 <h1>New Wiki</h1>
 
-<div class="row">
-  <div class="col-md-8">
-    <%= form_for @wiki do |f| %>
-    <div class="form-group">
-      <%= f.label :title %><br />
-      <%= f.text_field :title %>
-    </div>
-    <div class="form-group">
-      <%= f.label :body %><br />
-      <%= f.text_area :body, size: "72x24" %>
-    </div>
-    <% if policy(@wiki).can_create_private_wiki? %>
-      <div class="form-group">
-        <%= f.label :private %>
-        <%= f.check_box(:private) %>
-      </div>
-    <% end %>
-    <p>
-      <div class="form-group">
-        <%= f.submit "Save" %>
-      </div>
-    </p>
-  <% end %>
-  </div>
-</div>
+<%= render partial: 'form', locals: {wiki: @wiki} %>
