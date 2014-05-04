@@ -32,7 +32,7 @@ class WikiPolicy < ApplicationPolicy
   private
 
   def auth_private?
-     user.present? && (user.role == "admin" || user.id == wiki.user_id)
+    user.present? && (user.role == "admin" || user.id == wiki.user_id)
   end
 
   def auth_public?
