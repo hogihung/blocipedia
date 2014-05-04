@@ -17,7 +17,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def destroy?
-    update?
+    user.present? && (user.role == "admin" || user.id == wiki.user_id)
   end
 
   def show?

@@ -13,9 +13,12 @@
           <% if current_user %>
           <td><%= wiki.private %></td>
           <td><%= link_to "Edit", edit_wiki_path(wiki) %></td>
-          <% if policy(wiki).destroy? %>
-            <td><%= link_to "Delete", wiki, method: :delete, data: { confirm: 'Are you sure you want to delete this wiki?' } %></td>
-          <% end %>
+          <td>
+            <% if policy(wiki).destroy? %>
+              <%= link_to "Delete", wiki, method: :delete, data:
+                  { confirm: 'Are you sure you want to delete this wiki?' } %>
+            <% end %>
+          </td>
           <td><%= link_to "Export", '#' %></td>
         </tr>
           <% end %>
