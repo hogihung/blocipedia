@@ -21,8 +21,10 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def show?
-    raise Pundit::NotAuthorizedError, "Author has marked this wiki as private. Unable to display." unless
-    !wiki.private? || (wiki.private? && user.id == wiki.user_id if user.present?)
+    !wiki.private? || (
+      raise Pundit::NotAuthorizedError,
+      "Author has marked this wiki as private. Unable to display." unless
+    (wiki.private? && user.id == wiki.user_id if user.present?) )
   end
 
 end
