@@ -13,8 +13,12 @@ The application has the following requirements:
 
 * Devise
 
-* CanCanCan
+* Pundit
 
-* ...
+* RedCarpet
+
+* Friendly_ID
+
+* Stripe
 
 More  informatino to follow.
