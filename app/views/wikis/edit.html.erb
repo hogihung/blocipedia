@@ -1,5 +1,5 @@
-<% if (current_user.id == @wiki.user_id || current_user.role == "admin") %>
   <h1>Edit Wiki</h1>
+
   <div class="row">
     <div class="col-md-8">
       <%= form_for @wiki do |f| %>
@@ -23,8 +23,3 @@
       <% end %>
     </div>
   </div>
-<% else %>
-  <p><br />
-    You are not authorized to edit this wiki.
-  </p>
-<% end %>
