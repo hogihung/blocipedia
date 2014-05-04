@@ -12,7 +12,11 @@
           <td><%= wiki.user_id %></td>
           <% if current_user %>
           <td><%= wiki.private %></td>
-          <td><%= link_to "Edit", edit_wiki_path(wiki) %></td>
+          <td>
+            <% if policy(wiki).destroy? %>
+              <%= link_to "Edit", edit_wiki_path(wiki) %>
+            </td>
+            <% end %>
           <td>
             <% if policy(wiki).destroy? %>
               <%= link_to "Delete", wiki, method: :delete, data:
