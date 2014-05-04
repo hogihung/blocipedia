@@ -1,17 +1,9 @@
-<% if policy(@wiki).show? %>
-  <h1><%= markdown @wiki.title %></h1>
-    <div class="col-md-8">
-      <p><%= markdown @wiki.body %></p>
-
-      <p>
-        <% if policy(@wiki).update? %>
-          <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
-        <% end %>
-      </p>
-
-    </div>
-<% else %>
-  <p><br />
-    You are not authorized to view this wiki.
-  </p>
-<% end %>
+<h1><%= markdown @wiki.title %></h1>
+  <div class="col-md-8">
+    <p><%= markdown @wiki.body %></p>
+    <p>
+      <% if policy(@wiki).update? %>
+        <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
+      <% end %>
+    </p>
+  </div>
