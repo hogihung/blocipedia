@@ -3,6 +3,8 @@ class Wiki < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   belongs_to :user
+  has_many :wiki_collaborators
+  has_many :users, :through => :wiki_collaborators
 
   validates :title, presence: true
   validates :body, presence: true
