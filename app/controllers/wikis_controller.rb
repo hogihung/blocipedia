@@ -19,6 +19,8 @@ class WikisController < ApplicationController
   def show
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
+
+    @wiki_collaborators = WikiCollaborators.all
   end
 
   def edit
@@ -41,7 +43,7 @@ class WikisController < ApplicationController
   def update
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
-    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body))
+    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body, :private))
       flash[:notice] = "Wiki updated."
       redirect_to @wiki
     else

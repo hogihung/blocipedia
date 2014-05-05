@@ -4,6 +4,24 @@
     <p>
       <% if policy(@wiki).update? %>
         <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
+
+        <br /><br />
+        <h4>Wiki Collaborators</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr style="background-color:aliceblue;">
+              <td>Name</td>
+              <td>Email</td>
+              <td>Wiki ID</td>
+            </tr>
+            <% @wiki_collaborators.each do |collaborator| %>
+              <tr>
+                <td><%= collaborator.user.name %></td>
+                <td><%= collaborator.user.email %></td>
+                <td><%= collaborator.wiki_id %></td>
+              </tr>
+            <% end %>
+        </table>
       <% end %>
     </p>
   </div>
