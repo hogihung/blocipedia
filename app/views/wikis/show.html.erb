@@ -6,22 +6,24 @@
         <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
 
         <br /><br />
-        <h4>Wiki Collaborators</h4>
-        <table class="table table-bordered">
-          <thead>
-            <tr style="background-color:aliceblue;">
-              <td>Name</td>
-              <td>Email</td>
-              <td></td>
-            </tr>
-            <% @wiki_collaborators.each do |collaborator| %>
-              <tr>
-                <td><%= collaborator.user.name %></td>
-                <td><%= collaborator.user.email %></td>
-                <td><%= link_to "Remove", '#'%></td>
+        <% if @wiki_collaborators.count > 0 %>
+          <h4>Wiki Collaborators</h4>
+          <table class="table table-bordered">
+            <thead>
+              <tr style="background-color:aliceblue;">
+                <td>Name</td>
+                <td>Email</td>
+                <td></td>
               </tr>
-            <% end %>
-        </table>
+              <% @wiki_collaborators.each do |collaborator| %>
+                <tr>
+                  <td><%= collaborator.user.name %></td>
+                  <td><%= collaborator.user.email %></td>
+                  <td><%= link_to "Remove", '#'%></td>
+                </tr>
+              <% end %>
+          </table>
+          <% end %>
       <% end %>
     </p>
   </div>
