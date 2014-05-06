@@ -20,7 +20,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
 
-    @wiki_collaborators = WikiCollaborators.all
+    @wiki_collaborators = WikiCollaborators.where("wiki_id = ?", @wiki.id)
   end
 
   def edit
