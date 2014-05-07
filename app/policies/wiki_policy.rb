@@ -8,12 +8,18 @@ class WikiPolicy < ApplicationPolicy
     user.present? && user.role == "premium"
   end
 
+  def collaborator?
+    false #this is hard set for the moment - was set to true
+    #How do I code this check?
+  end
+
   def create?
     user.present?
   end
 
   def update?
-    user.present? && (user.role == "admin" || user.id == wiki.user_id)
+    user.present? && (user.role == "admin" || user.id == wiki.user_id || collaborator?)
+    #Collaborators should be able to update - how?
   end
 
   def destroy?

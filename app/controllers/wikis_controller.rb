@@ -8,6 +8,7 @@ class WikisController < ApplicationController
       @wikis = Wiki.all
     else
       @wikis = Wiki.where("user_id = ? OR private = ?", current_user.id, false)
+      #@wikis = Wiki.current_user_or_public(current_user)
     end
   end
 
@@ -20,7 +21,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
 
-    @wiki_collaborators = WikiCollaborators.where("wiki_id = ?", @wiki.id)
+    @wiki_collaborators = Collaborator.where("wiki_id = ?", @wiki.id)
   end
 
   def edit
@@ -29,7 +30,8 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = current_user.wikis.build(params.require(:wiki).permit(:title, :body, :private))
+    #binding.pry
+    @wiki = current_user.wikis.build(wiki_params)
     authorize @wiki
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -63,4 +65,10 @@ class WikisController < ApplicationController
       render :show
     end
   end
+
+  private
+  def wiki_params
+    params.require(:wiki).permit(:title, :body, :private)
+  end
+
 end

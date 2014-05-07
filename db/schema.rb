@@ -16,6 +16,11 @@ ActiveRecord::Schema.define(version: 20140505231054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "collaborators", force: true do |t|
+    t.integer "user_id"
+    t.integer "wiki_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",       null: false
     t.string   "encrypted_password",     default: "",       null: false
@@ -39,11 +44,6 @@ ActiveRecord::Schema.define(version: 20140505231054) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "wiki_collaborators", force: true do |t|
-    t.integer "user_id"
-    t.integer "wiki_id"
-  end
 
   create_table "wikis", force: true do |t|
     t.string   "title"
