@@ -1,29 +1,39 @@
 <h1><%= markdown @wiki.title %></h1>
+<div class="row">
   <div class="col-md-8">
     <p><%= markdown @wiki.body %></p>
     <p>
       <% if policy(@wiki).update? %>
-        <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
-
         <br /><br />
-        <% if @wiki_collaborators.count > 0 %>
           <h4>Wiki Collaborators</h4>
-          <table class="table table-bordered">
-            <thead>
-              <tr style="background-color:aliceblue;">
-                <td>Name</td>
-                <td>Email</td>
-                <td></td>
-              </tr>
-              <% @wiki_collaborators.each do |collaborator| %>
-                <tr>
-                  <td><%= collaborator.user.name %></td>
-                  <td><%= collaborator.user.email %></td>
-                  <td><%= link_to "Remove", '#'%></td>
+          <%= form_for(@wiki) do %>
+            <table class="table table-bordered">
+              <thead>
+                <tr style="background-color:aliceblue;">
+                  <td>Name</td>
+                  <td>Email</td>
+                  <td>Give Access</td>
+                </tr>
+              </thead>
+              <tbody>
+              <% @users.each do |user| %>
+                <tr id="user-<%= user.id %>">
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
+                  <td><%= check_box_tag :user_ids, user.id, user.collaborates_on?(@wiki), name: 'wiki[user_ids][]' %></td>
                 </tr>
               <% end %>
-          </table>
+              </tbody>
+            </table>
+            <div class="col-md-6">
+              <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
+            </div>
+            <div class="col-md-2">
+              <%= submit_tag %>
+            </div>
           <% end %>
-      <% end %>
     </p>
   </div>
+    <% end %>
+</div>
+<br /><br />

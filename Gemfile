@@ -52,6 +52,8 @@ group :test do
   gem 'database_cleaner'
   gem 'guard-livereload'
   gem 'faker'
+
+  gem 'shoulda-matchers'
 end
 
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -60,3 +62,4 @@ gem 'figaro'
 gem 'redcarpet'
 gem 'pundit'
 gem 'friendly_id', '~> 5.0.0'
+gem 'stripe'

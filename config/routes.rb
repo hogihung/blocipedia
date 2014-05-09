@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'subscriptions/new'
+
   devise_for :users
   get 'home/index'
   get 'home/about'

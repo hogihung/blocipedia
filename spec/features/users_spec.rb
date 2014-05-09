@@ -50,8 +50,7 @@ feature 'Premium User Account', %q{
   end
 
   scenario 'User has a premium account', focus: true do
-    @user.premium = true
-    #...
+    @user.role = "premium"
     expect(@user.premium?).to be_true
   end
 

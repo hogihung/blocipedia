@@ -9,8 +9,7 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def collaborator?
-    false #this is hard set for the moment - was set to true
-    #How do I code this check?
+    user.collaborates_on?(wiki)
   end
 
   def create?

@@ -8,7 +8,6 @@ class WikisController < ApplicationController
       @wikis = Wiki.all
     else
       @wikis = Wiki.where("user_id = ? OR private = ?", current_user.id, false)
-      #@wikis = Wiki.current_user_or_public(current_user)
     end
   end
 
@@ -21,7 +20,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
 
-    @wiki_collaborators = Collaborator.where("wiki_id = ?", @wiki.id)
+    @users = User.potential_collaborators(@wiki.user) if current_user
   end
 
   def edit
@@ -30,7 +29,6 @@ class WikisController < ApplicationController
   end
 
   def create
-    #binding.pry
     @wiki = current_user.wikis.build(wiki_params)
     authorize @wiki
     if @wiki.save
@@ -45,7 +43,7 @@ class WikisController < ApplicationController
   def update
     @wiki = Wiki.friendly.find(params[:id])
     authorize @wiki
-    if @wiki.update_attributes(params.require(:wiki).permit(:title, :body, :private))
+    if @wiki.update_attributes(wiki_params)
       flash[:notice] = "Wiki updated."
       redirect_to @wiki
     else
@@ -68,7 +66,7 @@ class WikisController < ApplicationController
 
   private
   def wiki_params
-    params.require(:wiki).permit(:title, :body, :private)
+    params.require(:wiki).permit(:title, :body, :private, :user_id, user_ids:[])
   end
 
 end

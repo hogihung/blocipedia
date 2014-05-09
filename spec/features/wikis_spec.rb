@@ -23,7 +23,8 @@ feature 'User creates a public wiki', %q{
 
   scenario 'User is not logged in, should not be able to create a public wiki'  do
     visit wikis_path
-    click_link "New Wiki"
+    expect(page).not_to have_link "New Wiki"
+    visit new_wiki_path
     expect(page).to have_content "You need to sign in or sign up before continuing."
   end
 end
@@ -34,21 +35,28 @@ feature 'User edits a public wiki', %q{
   When I am logged in
   I can edit public wikis
 } do
+  let(:user) { FactoryGirl.create(:user, :with_post) }
 
   background do
-    @user = create(:user)
-    @wiki = create(:wiki)
+    user
+  end
+
+  after(:each) do
+    if example.exception
+      puts page.body
+
+    end
   end
 
   scenario 'User is logged in, can edit a public wiki' do
-    login(@user)
-    @wiki.private = false
+    login(user)
+    expect(page).to have_content "Signed in successfully."
     visit wikis_path
     click_link "Edit"
+    expect(page).to have_content("Edit Wiki")
   end
 
   scenario 'User is not logged in, should not be able to edit a public wiki' do
-    @wiki.private = false
     visit wikis_path
     expect(page).to_not have_content "Edit"
   end
@@ -61,15 +69,11 @@ feature 'User creates a private wiki', %q{
   I can create private wikis
 } do
 
-  background do
-    @user = create(:user)
-    @wiki = create(:wiki)
-  end
+  given(:premium_user) { FactoryGirl.create(:user, role: 'premium' ) }
+  given(:user) { FactoryGirl.create(:user ) }
 
   scenario 'User, with Premium Account, can create a private wiki' do
-    login(@user)
-    @user.role = "premium"
-    @user.save
+    login(premium_user)
     visit wikis_path
     click_link "New Wiki"
     fill_in "Title", with: "Premo Wiki"
@@ -81,17 +85,16 @@ feature 'User creates a private wiki', %q{
   end
 
   scenario 'User, not with Premium Account, does not have option to create a private wiki' do
-    login(@user)
-    @user.role = "member"
+    login(user)
     visit wikis_path
     click_link "New Wiki"
-    page.has_checked_field?("Private").should_not be
-    #expect(page).to_not have_content "Private"
+
+    expect(page).to_not have_xpath("//label[@for='wiki_private']")
+    expect(page).to_not have_xpath("//input[@id='wiki_private']")
   end
 
   scenario 'User is not logged in, should not be able to create a private wiki' do
-    visit wikis_path
-    click_link "New Wiki"
+    visit new_wiki_path
     expect(page).to have_content "You need to sign in or sign up before continuing."
   end
 end
@@ -101,27 +104,22 @@ feature 'User edits a private wiki', %q{
   As a premium user of the site
   When I am logged in
   I can edit private wikis
-} do
+}, :focus do
 
-  background do
-    @user = create(:user)
-    @wiki = create(:wiki)
-    @wiki.private = true
-  end
+  given(:premium_user) { FactoryGirl.create(:user, :with_post, role: 'premium' ) }
+  given(:user) { FactoryGirl.create(:user, :with_post ) }
 
   scenario 'User is logged in as a premium user, edits a private wiki' do
-    login(@user)
-    @user.role = "premium"
+    login(premium_user)
     visit wikis_path
     click_link "Edit"
   end
 
   scenario 'User is logged in, but is not a premium user, should not be able to edit a private wiki' do
-    login(@user)
-    @user.role = "member"
+    login(user)
     visit wikis_path
     click_link "Edit"
-    has_no_checked_field?("Private")
+    expect(page).to_not have_xpath("//input[@id='wiki_private']")
   end
 
   scenario 'User is not logged in, should not be able to edit a private wiki' do
