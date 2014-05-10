@@ -4,8 +4,4 @@ class SubscriptionPolicy < ApplicationPolicy
     user.present? && user.role == "member"
   end
 
-  def destroy?
-    user.present? && user.role == "premium"
-  end
-
 end
