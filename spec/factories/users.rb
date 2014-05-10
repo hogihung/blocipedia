@@ -8,6 +8,7 @@ FactoryGirl.define do
     password_confirmation "playTime"
 
     trait :premium do
+      #FactoryGirl.create(:subscription, user: user, stripe_cart_token: "hubba-bubba")
       role "premium"
     end
 

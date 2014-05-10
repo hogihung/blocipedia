@@ -20,37 +20,35 @@ feature "User upgrades to premium subscription" do
 
     stripe = page.driver.window_handles.last
     page.within_window stripe do
-      expect(page).to have_content("A month's subscription")
+      expect(page).to have_content("A Premium Membership Subscription")
       fill_in "email", with: "joesmoe@email.com"
       fill_in "card_number", with: "4012 8888 8888 1881"
       fill_in "cc-exp", with: "0614"
       fill_in "cc-csc", with: "123"
-      click_button("Subscribe $9.00")
+      click_button("Subscribe $49.00")
     end
 
     sleep 1 #iframe wait
     expect(page).to have_content "Sign up for Premium account successfull."
-
-    expect(page).to have_link("Cancel Subscription")
   end
+
+  # Need the factory to setup a subscription for us before testing ***
+  # Had issue getting factory to create subscription, so created the
+  # subscription below after login(premium_user)
+  scenario "A logged in premium user should not be able to upgrade" do
+    login(premium_user)
+    Subscription.create!(user: premium_user, stripe_cart_token: "hubba-bubba")
+    click_link premium_user.name
+
+    expect(page).to_not have_link("Upgrade")
+  end
+end
+
+
+feature "Visiting user cannot upgrade a subscription" do
 
   scenario "A visiting user should not be able to upgrade another users subscription." do
     visit "http://localhost:3000/users/1/subscription/new"
     expect(page).to have_content("You are not authorized to perform this action.")
   end
-end
-
-
-feature "User cancels premium subscription" do
-
-  pending "Previous test(s) pass." do
-    #...
-  end
-
-  scenario "A visiting user should not be able to cancel another user subscription." do
-    visit "http://localhost:3000/users/1/subscription/"
-    #how do I simulate a destroy via url here? Is it applicable?
-    expect(page).to have_content("You are not authorized to perform this action.")
-  end
-
 end
