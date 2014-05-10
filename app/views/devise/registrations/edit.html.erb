@@ -41,7 +41,11 @@
             <%= f.submit "Update", class: 'btn btn-success' %>
           </div>
           <div class="col-md-4">
-            <%= link_to "Upgrade", '#', class: 'btn btn-primary btn-lg' %>
+            <% if current_user.subscription.nil? %>
+              <%= link_to "Upgrade", new_user_subscription_path(current_user), class: 'btn btn-primary btn-lg' %>
+            <% else %>
+              <%= link_to "Cancel Subscription", '#', class: 'btn btn-primary btn-lg' %>
+            <% end %>
           </div>
         </div>
       <% end %>

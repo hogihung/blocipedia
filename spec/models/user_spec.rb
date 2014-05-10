@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
 it { should have_many(:collaborators) }
+it { should have_one(:subscription) }
   describe "scopes" do
 
     let(:current_user) { FactoryGirl.create(:user) }

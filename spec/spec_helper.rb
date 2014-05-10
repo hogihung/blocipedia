@@ -59,3 +59,5 @@ RSpec.configure do |config|
   # Add our own module for model validation (spec/support/validate_presence_of.rb)
   #config.include ValidatePresenceOf, type: :model
 end
+
+Capybara.javascript_driver = :webkit

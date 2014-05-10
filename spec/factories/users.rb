@@ -8,7 +8,7 @@ FactoryGirl.define do
     password_confirmation "playTime"
 
     trait :premium do
-      premium true
+      role "premium"
     end
 
     trait :with_post do
@@ -16,7 +16,6 @@ FactoryGirl.define do
         FactoryGirl.create(:wiki, user: user )
       end
     end
-
 
     factory :admin_user do
       role "admin"
