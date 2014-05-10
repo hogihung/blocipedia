@@ -44,7 +44,7 @@
             <% if current_user.subscription.nil? %>
               <%= link_to "Upgrade", new_user_subscription_path(current_user), class: 'btn btn-primary btn-lg' %>
             <% else %>
-              <%= link_to "Cancel Subscription", '#', class: 'btn btn-primary btn-lg' %>
+              <%= link_to "Cancel Subscription", "#", class: 'btn btn-danger' %>
             <% end %>
           </div>
         </div>
