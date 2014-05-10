@@ -1,7 +1,6 @@
 == README
 
-This is the README file for the Blocipedia application, my first Bloc project
-assignment.
+This is the README file for the Blocipedia application, a [Bloc.io](http://www.bloc.io) Saas Wiki Collaboration Tool project assignment.  The application supports three types of users: visitor, member and premium member.  A member can upgrade their account to be a premium member using the in app upgrade feature.  The upgrade feature uses [Stripe](http://www.stripe.com) to handle the one time credit card charge.
 
 The application has the following requirements:
 
@@ -21,4 +20,4 @@ The application has the following requirements:
 
 * Stripe
 
-More  informatino to follow.
+Testing for this application was done using RSpec and Capybara.
