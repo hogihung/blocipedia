@@ -30,7 +30,7 @@ feature "viewing the wiki page" do
     expect(page).to have_content(wiki.title)
     expect(page).to have_content(wiki.body)
 
-    expect(page).not_to have_content("Wiki Collaborators")
+    expect(page).not_to have_content("Add Collaborators to")
   end
 
 
@@ -42,7 +42,7 @@ feature "viewing the wiki page" do
 
     expect(page).to have_content(wiki.title)
     expect(page).to have_content(wiki.body)
-    expect(page).to have_content("Wiki Collaborators")
+    expect(page).to have_content("Add Collaborators to")
 
     User.potential_collaborators(owner).each do |collab|
       expect(page).to have_xpath("//table/tbody/tr/td", text: collab.name)
@@ -70,7 +70,7 @@ feature "viewing the wiki page" do
 
     expect(page).to have_content(wiki.title)
     expect(page).to have_content(wiki.body)
-    expect(page).to have_content("Wiki Collaborators")
+    expect(page).to have_content("Add Collaborators to")
 
     User.potential_collaborators(owner).each do |collab|
       expect(page).to have_xpath("//table/tbody/tr/td", text: collab.name)
@@ -92,7 +92,7 @@ feature "viewing the wiki page" do
     expect(page).to have_content(wiki.title)
     expect(page).to have_content(wiki.body)
 
-    expect(page).not_to have_content("Wiki Collaborators")
+    expect(page).not_to have_content("Add Collaborators to")
   end
 
 
@@ -101,14 +101,14 @@ feature "viewing the wiki page" do
     click_link 'Wikis'
     click_link wiki.title
 
-    expect(page).to have_content("Wiki Collaborators")
+    expect(page).to have_content("Add Collaborators to")
     expect(page).not_to have_xpath("//table/tbody/tr[@id='user-#{user.id}']/td/input[@checked='checked']")
     expect(page).not_to have_content("Wiki updated.")
 
     within("#user-#{user.id}") do
       check("wiki[user_ids][]")
     end
-    click_button "Save changes"
+    click_button "Share Wiki"
 
     expect(page).to have_content("Wiki updated.")
     expect(page).to have_xpath("//table/tbody/tr[@id='user-#{user.id}']/td/input[@checked='checked']")
