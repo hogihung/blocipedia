@@ -17,15 +17,4 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  def destroy
-    @subscription = Subscription.find(params[:user_id])
-    authorize @subscription
-    if @subscription.destroy
-      flash[:notice] = "Premium membership has been cancelled."
-      redirect_to edit_user_registration_path
-    else
-      flash[:alert] = "There was an error cancelling your Premium membership."
-      redirect_to edit_user_registration_path
-    end
-  end
 end
