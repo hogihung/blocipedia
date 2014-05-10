@@ -1,14 +1,34 @@
 <h1>Subscription Upgrade</h1>
+<div class="row">
+  <div class="col-md-8">
+    <p>
+      You are currently subscribed as a Basic Member.  To upgrade your account to a <em>Premium Membership,</em> please click the button below and complete the upgrade process by submitting your credit card information.
+    </p>
+    <p>
+      Your credit card will be billed monthly at the $9.00 per month rate unless you cancel your Premium Membership.
+    </p>
+    <p>
+      Premium Membership allows you to create Private Wikis in addition to the Public Wikis you can already create as a Basic Member.  Private Wikis will only be accessible by you, and any other user that you designate as a Collaborator.
+    </p>
 
-<%= form_tag user_subscription_path(current_user) do %>
-  <article>
-    <label class="amount">
-      <span>Amount: $9.00</span>
-    </label>
-  </article>
+    <%= form_tag user_subscription_path(current_user) do %>
+      <article>
+        <label class="amount">
+          <span>Amount: $9.00</span>
+        </label>
+      </article>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<%= ENV["STRIPE_PUBLIC_KEY"] %>"
-          data-description="A month's subscription"
-          data-amount="900"></script>
-<% end %>
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= ENV["STRIPE_PUBLIC_KEY"] %>"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-description="A month's subscription"
+              data-name="Blocipedia"
+              data-description="Premium Subscription $9.00 per month)"
+              data-panel-label="Subscribe"
+              data-label="Subscribe"
+              data-amount="900"
+              data-allow-remember-me="false">
+      </script>
+    <% end %>
+  </div>
+</div>
