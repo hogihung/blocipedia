@@ -2,7 +2,7 @@
 
 <div class="row">
   <p><br />
-  <table class="table table-bordered">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr style="background-color:aliceblue;">
         <td><h4>Wiki Title</h4></td>
@@ -12,6 +12,8 @@
           <td></td>
         <% end %>
       </tr>
+    </thead>
+    <tbody>
       <% @wikis.each do |wiki| %>
         <tr>
           <td><%= link_to wiki.title, wiki %></td>
@@ -33,6 +35,7 @@
         </tr>
           <% end %>
       <% end %>
+    </tbody>
     </table>
   </p>
 </div>
