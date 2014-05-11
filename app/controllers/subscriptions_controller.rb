@@ -8,6 +8,13 @@ class SubscriptionsController < ApplicationController
     begin
       Subscription.create!(user: current_user,
               stripe_cart_token: params[:stripeToken])
+
+      # ***********************************************
+      # Is there a better way to do this?
+      current_user.role = "Premium"
+      current_user.save
+      # ***********************************************
+
       flash[:notice] = "Sign up for Premium account successfull."
       redirect_to edit_user_registration_path
     rescue Exception => e
