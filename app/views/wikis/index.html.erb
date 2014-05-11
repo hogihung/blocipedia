@@ -10,8 +10,6 @@
         <% if current_user %>
           <td></td>
           <td></td>
-          <td></td>
-          <!-- <td></td> -->
         <% end %>
       </tr>
       <% @wikis.each do |wiki| %>
@@ -19,7 +17,7 @@
           <td><%= link_to wiki.title, wiki %></td>
           <td><%= wiki.user.name %></td>
           <% if current_user %>
-          <td><%= wiki.private %></td>
+          <!-- <td><%= wiki.private %></td> -->
           <td>
             <% if policy(wiki).destroy? %>
               <%= link_to "Edit", edit_wiki_path(wiki) %>
