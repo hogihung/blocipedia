@@ -12,25 +12,25 @@ feature 'User Authentication', %q{
     @user = create(:user)
   end
 
-  scenario 'User attempts log in with invalid creditentials', focus: true do
+  scenario 'User attempts log in with invalid creditentials' do
     @user.password = "not_correct"
     login(@user)
     expect(page).to have_content "Invalid email or password."
   end
 
-  scenario 'User logs in with valid creditentials', focus: true do
+  scenario 'User logs in with valid creditentials' do
     login(@user)
     expect(page).to have_content "Hello #{@user.name}!"
   end
 
-  scenario 'User log out', focus: true do
+  scenario 'User log out' do
     login(@user)
     logout
     expect(current_path).to eq(root_path)
     expect(page).to have_content "Sign In"
   end
 
-  scenario 'Users are redirected to Edit User page at login', focus: true do
+  scenario 'Users are redirected to Edit User page at login' do
     login(@user)
     visit edit_user_registration_path
     expect(current_path).to eq(edit_user_registration_path)
@@ -49,12 +49,12 @@ feature 'Premium User Account', %q{
     @user = create(:user)
   end
 
-  scenario 'User has a premium account', focus: true do
+  scenario 'User has a premium account' do
     @user.role = "premium"
     expect(@user.premium?).to be_true
   end
 
-  scenario 'User does not have a premium account', focus: true do
+  scenario 'User does not have a premium account' do
     expect(@user.premium?).to be_false
   end
 

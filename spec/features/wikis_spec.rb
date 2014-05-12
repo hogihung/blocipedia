@@ -104,7 +104,7 @@ feature 'User edits a private wiki', %q{
   As a premium user of the site
   When I am logged in
   I can edit private wikis
-}, :focus do
+} do
 
   given(:premium_user) { FactoryGirl.create(:user, :with_post, role: 'premium' ) }
   given(:user) { FactoryGirl.create(:user, :with_post ) }
